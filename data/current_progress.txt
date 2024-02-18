@@ -1,0 +1,12 @@
+Player Name: Bogdan
+Player Level: 0
+Player Exp: 0
+Player Health: 100
+Player Mana: 50
+Player Attack: 5
+Player Magic: 5
+Player Defense: 5
+Player Resistance: 5
+Player Dodge: 1
+Player Class: None
+Player Skills: None

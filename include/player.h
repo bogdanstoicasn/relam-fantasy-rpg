@@ -15,6 +15,6 @@ typedef struct player_info{
     char player_skills[MAX_SKILLS][PADDING_32];
 } player_info;
 
-void fff();
+size_t load_game();
 
 #endif

@@ -3,8 +3,12 @@
 
 #include <stddef.h>
 
-#define DATA_DIR_SRC "../"
 #define MAX_SKILLS 24
+
+#define PADDING_1024 1024
+#define PADDING_256 256
+#define PADDING_128 128
+#define PADDING_64 64
 #define PADDING_32 32
 #define PADDING_8 8
 
@@ -41,7 +45,7 @@ typedef struct {
 typedef struct {
     size_t attack;
     size_t magic;
-    size_t defensive;
+    size_t defense;
     size_t resistance;
     size_t dodge;
 } basic_stats;

@@ -1,10 +1,13 @@
 #include "../include/library.h"
-
+//TODO: error handler function
+/*
+    Our entry point in the game
+*/
 void game_launcher()
 {
-    printf("Entered game_launcher function\n");
-    fff();
+    load_game();
 }
+
 int main()
 {
     game_launcher();
