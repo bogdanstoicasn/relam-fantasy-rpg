@@ -1,7 +1,12 @@
 #include "../include/library.h"
 
+void game_launcher()
+{
+    printf("Entered game_launcher function\n");
+    fff();
+}
 int main()
 {
-    printf("Entered main function where game is played\n");
+    game_launcher();
     return 0;
 }

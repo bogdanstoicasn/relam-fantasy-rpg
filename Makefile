@@ -1,46 +1,62 @@
+# Makefile
+
 # Compiler
 CC = gcc
 # Compiler flags
 CFLAGS = -Wall -Wextra -Iinclude
 
 # Directories
-SRC_DIR = src
-OBJ_DIR = game/obj
-LIB_DIR = game/lib
-GAME_DIR = game
+SRCDIR = src
+OBJDIR = game/obj
+LIBDIR = game/lib
+BINDIR = game
 
 # Source files
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+ENTITY_SRCS = $(wildcard $(SRCDIR)/entity/*.c)
+PROGRESSION_SRCS = $(wildcard $(SRCDIR)/progression/*.c)
+MAIN_SRCS = $(SRCDIR)/main.c
+
 # Object files
-OBJS = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+ENTITY_OBJS = $(patsubst $(SRCDIR)/entity/%.c,$(OBJDIR)/entity/%.o,$(ENTITY_SRCS))
+PROGRESSION_OBJS = $(patsubst $(SRCDIR)/progression/%.c,$(OBJDIR)/progression/%.o,$(PROGRESSION_SRCS))
+MAIN_OBJ = $(OBJDIR)/main.o
 
 # Static library
-LIBRARY = $(LIB_DIR)/libgame.a
+LIB = $(LIBDIR)/libgame.a
 
-# Main program
-MAIN = $(SRC_DIR)/main.c
-# Executable
-EXECUTABLE = Relam_RPG
+# Main target
+EXECUTABLE = $(BINDIR)/Relam_RPG
 
-.PHONY: all clean
+.PHONY: all clean run
 
-all: $(GAME_DIR)/$(EXECUTABLE)
+all: $(LIB) $(EXECUTABLE)
 
-# Guard to create directories if they don't exist
-$(OBJ_DIR) $(LIB_DIR):
-	@mkdir -p $@
+$(LIB): $(ENTITY_OBJS) $(PROGRESSION_OBJS) | $(LIBDIR)
+	ar rcs $(LIB) $^
 
-# Compile object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+$(EXECUTABLE): $(MAIN_OBJ) $(LIB) | $(BINDIR)
+	$(CC) $(CFLAGS) $< -L$(LIBDIR) -lgame -o $@
+
+$(OBJDIR)/entity/%.o: $(SRCDIR)/entity/%.c | $(OBJDIR)/entity
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Create static library
-$(LIBRARY): $(OBJS) | $(LIB_DIR)
-	ar rcs $@ $^
+$(OBJDIR)/progression/%.o: $(SRCDIR)/progression/%.c | $(OBJDIR)/progression
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Compile main program
-$(GAME_DIR)/$(EXECUTABLE): $(MAIN) $(LIBRARY)
-	$(CC) $(CFLAGS) $< -L$(LIB_DIR) -lgame -o $@
+$(MAIN_OBJ): $(MAIN_SRCS) | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)/entity:
+	mkdir -p $@
+
+$(OBJDIR)/progression:
+	mkdir -p $@
+
+$(OBJDIR) $(LIBDIR) $(BINDIR):
+	mkdir -p $@
 
 clean:
-	rm -rf $(OBJ_DIR) $(LIB_DIR) $(EXECUTABLE) $(GAME_DIR)
+	rm -rf $(OBJDIR) $(LIB) $(BINDIR)
+
+run: all
+	./$(EXECUTABLE)

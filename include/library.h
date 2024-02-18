@@ -3,10 +3,10 @@
 
 #include <stdio.h>
 
-#include "utils.h"
 #include "class.h"
 #include "monster.h"
 #include "player.h"
 #include "skills.h"
+#include "utils.h"
 
 #endif

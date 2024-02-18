@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 
+#define DATA_DIR_SRC "../"
 #define MAX_SKILLS 24
 #define PADDING_32 32
 #define PADDING_8 8
