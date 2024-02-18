@@ -7,7 +7,7 @@
     Struct that contains information about the class
     See: utils.h
 */
-typedef struct {
+typedef struct class_info {
     char class_name[PADDING_32];
     size_t class_tier;
     basic_stats class_stats;

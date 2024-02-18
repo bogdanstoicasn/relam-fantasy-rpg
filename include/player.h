@@ -7,7 +7,7 @@
     Structure that contains player information
     See: utils.h, class.h
 */
-typedef struct {
+typedef struct player_info{
     basic_info player_progress;
     basic_resources player_resources;
     basic_stats player_stats;

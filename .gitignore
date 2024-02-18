@@ -1,0 +1,8 @@
+# Ignore object files
+game/obj/
+
+# Ignore static library
+game/lib/
+
+# Ignore executable
+game/Realm_RPG

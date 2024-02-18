@@ -1,5 +1,5 @@
 #ifndef UTILS_H
-#define UTILS_h
+#define UTILS_H
 
 #include <stddef.h>
 
@@ -81,7 +81,7 @@ enum monster_type {
     NORMAL,
     BERSERK,
     BOSS,
-    BERSERK
+    BERSERK_BOSS
 };
 
 /*
