@@ -1,11 +1,14 @@
 #include "../include/library.h"
-//TODO: error handler function
+
+//TODO: error handler function(future)
 /*
     Our entry point in the game
 */
 void game_launcher()
 {
-    load_game();
+    player_info *player_information = malloc(sizeof(player_info));
+    load_game(player_information);
+    free(player_information);
 }
 
 int main()

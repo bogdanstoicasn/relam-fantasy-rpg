@@ -15,4 +15,6 @@ typedef struct class_info {
     char class_passives[PADDING_8][PADDING_32];
 } class_info;
 
+char *first_class_choosing_function();
+
 #endif

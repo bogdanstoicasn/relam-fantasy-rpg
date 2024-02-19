@@ -56,6 +56,7 @@ typedef struct {
 typedef struct {
     float p1;
     float p2;
+    float p3;
 } penetration;
 
 /*
@@ -76,7 +77,8 @@ enum skill_type {
 enum skill_subtype {
     BLUNT,
     EDGE,
-    ELEMENTAL
+    ELEMENTAL,
+    ARCANE
 };
 
 /*

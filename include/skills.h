@@ -2,6 +2,7 @@
 #define SKILLS_H
 
 #include "utils.h"
+#include "player.h"
 
 /*
     Contains info about the skill
@@ -13,6 +14,9 @@ typedef struct skill_info {
     enum skill_subtype skill_modifier;
     penetration skill_penetration;
     size_t skill_strikes;
+    char description[PADDING_64];
 } skill_info;
+
+skill_info *first_class_skill(char *class, player_info *player_information);
 
 #endif
