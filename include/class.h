@@ -11,7 +11,7 @@ typedef struct class_info {
     char class_name[PADDING_32];
     size_t class_tier;
     basic_stats class_stats;
-    basic_resources class_resources;
+    size_t health;
     char class_passives[PADDING_8][PADDING_32];
 } class_info;
 

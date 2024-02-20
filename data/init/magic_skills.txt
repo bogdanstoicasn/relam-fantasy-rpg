@@ -2,8 +2,9 @@
 Skill Name: Bolt
 Skill Level: 0
 Skill Exp: 0
-Skill Type: MAGIC
-Skill Subtype: ARCANE
+Skill Type: 1
+Skill Subtype: 3
 Penetration: 1 1 1
 Strikes: 1
+Turns: 1
 Description: A magic bolt.

@@ -1,11 +1,19 @@
-Player Name: bog
+Player Name: asda
 Player Exp: 0
 Player Health: 100
-Player Mana: 50
 Player Attack: 5
 Player Magic: 5
 Player Defense: 5
 Player Resistance: 5
 Player Dodge: 1
-Player Class: Mage
-Player Skills: None
+Player Class: Warrior
+Player Skills: 1
+Skill Name: Lunge
+Skill Level: 0
+Skill Exp: 0
+Skill Type: 0
+Skill Subtype: 1
+Penetration: 1.000000 1.000000 1.000000
+Strikes: 1
+Turns: 1
+Description: The lunge of an warrior.

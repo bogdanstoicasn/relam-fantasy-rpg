@@ -7,7 +7,10 @@
 void game_launcher()
 {
     player_info *player_information = malloc(sizeof(player_info));
-    load_game(player_information);
+    size_t err = load_game(player_information);
+    print_player_progress(player_information);
+    free(player_information->skill_array);
+    
     free(player_information);
 }
 

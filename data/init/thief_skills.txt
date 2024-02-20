@@ -1,9 +1,0 @@
-1
-Skill Name: Guts
-Skill Level: 0
-Skill Exp: 0
-Skill Type: ATTACK
-Skill Subtype: EDGE
-Penetration: 1 0 2
-Strikes: 1
-Description: Strike with fury dealing random damage, but never 0.

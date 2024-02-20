@@ -3,7 +3,9 @@
 
 #include <stddef.h>
 
-#define MAX_SKILLS 24
+#define MAX_SKILLS 21
+#define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
+
 
 #define PADDING_1024 1024
 #define PADDING_256 256
@@ -26,18 +28,10 @@
     Made it in a struct to be more compact
 */
 typedef struct {
-    char s[32];
+    char name[32];
     size_t level;
     unsigned long long exp;
 } basic_info;
-
-/*
-    Basic resources of a character/monster
-*/
-typedef struct {
-    size_t health;
-    size_t mana;
-} basic_resources;
 
 /*
     Basic stats of a character/monsters
@@ -64,10 +58,10 @@ typedef struct {
     We can add more types later
 */
 enum skill_type {
-    ATTACK,
-    MAGIC,
-    BUFF,
-    DEBUFF
+    ATTACK = 0,
+    MAGIC = 1,
+    BUFF = 2,
+    DEBUFF = 3
 };
 
 /*
@@ -75,28 +69,28 @@ enum skill_type {
     We can add more subtypes later for complex mechanics
 */
 enum skill_subtype {
-    BLUNT,
-    EDGE,
-    ELEMENTAL,
-    ARCANE
+    BLUNT = 0,
+    EDGE = 1,
+    ELEMENTAL = 2,
+    ARCANE = 3
 };
 
 /*
     Basic monster types
 */
 enum monster_type {
-    NORMAL,
-    BERSERK,
-    BOSS,
-    BERSERK_BOSS
+    NORMAL = 0,
+    BERSERK = 1,
+    BOSS = 2,
+    BERSERK_BOSS = 3
 };
 
 /*
     Factions
 */
 enum faction_type {
-    HUMAN,
-    BEAST
+    HUMAN = 0,
+    BEAST = 1
 };
 
 #endif

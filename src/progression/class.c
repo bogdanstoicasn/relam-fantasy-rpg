@@ -4,9 +4,14 @@ char *first_class_choosing_function()
 {
     printf("Before beginning your journey please choose your class:");
     printf("\n1.Warrior -> Skill: Lunge\n2.Mage -> Skill: Bolt\n3.Thief -> Skill: Guts\n");
-    printf("Print the number before the class you want!");
+    printf("Introduce the number before the class you want!\n");
     while(1) {
         char c = getchar();
+
+        // clean the buffer
+        int remaining_buffer;
+        while((remaining_buffer = getchar()) != '\n' && remaining_buffer != EOF);
+
         char *class;
         switch(c) {
             case '1':
@@ -24,7 +29,8 @@ char *first_class_choosing_function()
                 memcpy(class, "Thief", 5);
                 class[5] = '\0';
                 return class;
-            case '4':
+            default:
+                fflush(stdout);
                 printf("Choose again!\n");
                 break;
         }
