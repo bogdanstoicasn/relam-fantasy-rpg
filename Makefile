@@ -3,7 +3,7 @@
 # Compiler
 CC = gcc
 # Compiler flags
-CFLAGS = -Wall -Wextra -Iinclude
+CFLAGS = -Wall -Wextra -Iinclude -MP -MD
 
 # Directories
 SRCDIR = src
@@ -23,6 +23,9 @@ LOAD_OBJS = $(patsubst $(SRCDIR)/load/%.c,$(OBJDIR)/load/%.o,$(LOAD_SRCS))
 PROGRESSION_OBJS = $(patsubst $(SRCDIR)/progression/%.c,$(OBJDIR)/progression/%.o,$(PROGRESSION_SRCS))
 MAIN_OBJ = $(OBJDIR)/main.o
 
+# Dependency files
+DEP_FILES = $(ENTITY_OBJS:.o=.d) $(LOAD_OBJS:.o=.d) $(PROGRESSION_OBJS:.o=.d) $(MAIN_OBJ:.o=.d)
+
 # Static library
 LIB = $(LIBDIR)/libgame.a
 
@@ -32,6 +35,8 @@ EXECUTABLE = $(BINDIR)/Relam_RPG
 .PHONY: all clean run run_valgrind
 
 all: $(LIB) $(EXECUTABLE)
+
+-include $(DEP_FILES)
 
 $(LIB): $(ENTITY_OBJS) $(LOAD_OBJS) $(PROGRESSION_OBJS) | $(LIBDIR)
 	ar rcs $(LIB) $^
@@ -65,6 +70,9 @@ $(OBJDIR) $(LIBDIR) $(BINDIR):
 
 clean:
 	rm -rf $(OBJDIR) $(LIB) $(BINDIR)
+
+clean_all: clean
+	rm -rf $(DEP_FILES)
 
 run: all
 	./$(EXECUTABLE)

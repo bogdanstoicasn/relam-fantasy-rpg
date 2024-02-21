@@ -2,33 +2,30 @@
 #define UTILS_H
 
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 #define MAX_SKILLS 21
 #define ARRAY_SIZE(arr) (sizeof(arr) / sizeof((arr)[0]))
 
 
 #define PADDING_1024 1024
+#define PADDING_512 512
 #define PADDING_256 256
 #define PADDING_128 128
 #define PADDING_64 64
 #define PADDING_32 32
+#define PADDING_16 16
 #define PADDING_8 8
-
-#define DIE(assertion, call_description)									\
-	do {													\
-		if (assertion) {										\
-			fprintf(stderr, "(%s, %d): ", __FILE__, __LINE__);					\
-			perror(call_description);								\
-			exit(errno);										\
-		}												\
-	} while (0)
 
 /*
     Basic information about character/boss
     Made it in a struct to be more compact
 */
 typedef struct {
-    char name[32];
+    char name[PADDING_32];
     size_t level;
     unsigned long long exp;
 } basic_info;
@@ -90,7 +87,8 @@ enum monster_type {
 */
 enum faction_type {
     HUMAN = 0,
-    BEAST = 1
+    BEAST = 1,
+    MAGICAL = 2
 };
 
 #endif

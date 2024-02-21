@@ -1,5 +1,12 @@
-#include "../include/library.h"
+#include "load.h"
 
+// SKILL LOADING
+
+// SKILL LOADING
+
+/*
+    Generates the first skill of the T1 class
+*/
 skill_info *first_class_skill(char *class)
 {
     skill_info *first_skill = malloc(sizeof(skill_info));
@@ -44,6 +51,10 @@ skill_info *first_class_skill(char *class)
     return NULL;
 }
 
+/*
+    Prints a skill info to a designated file pointer
+    See: "utils.h"
+*/
 void skill_print_function(FILE *fptr, skill_info *skill_data)
 {
     fprintf(fptr, "\n");

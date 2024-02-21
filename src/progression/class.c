@@ -1,5 +1,8 @@
-#include "../include/library.h"
+#include "load.h"
 
+/*
+    Generate the T1 class
+*/
 char *first_class_choosing_function()
 {
     printf("Before beginning your journey please choose your class:");

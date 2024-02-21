@@ -1,4 +1,4 @@
-2
+3
 Skill Name: Lunge
 Skill Level: 0
 Skill Exp: 0
@@ -8,7 +8,6 @@ Penetration: 1 1 1
 Strikes: 1
 Turns: 1
 Description: The lunge of an warrior.
-
 Skill Name: Guts
 Skill Level: 0
 Skill Exp: 0
@@ -18,3 +17,12 @@ Penetration: 1 0 2
 Strikes: 1
 Turns: 1
 Description: Strike with fury dealing random damage, but never 0.
+Skill Name: Slash
+Skill Level: 0
+Skill Exp: 0
+Skill Type: 0
+Skill Subtype: 1
+Penetration: 1.000000 1.000000 1.000000
+Strikes: 1
+Turns: 1
+Description: **GRRRR** **SHOOS**

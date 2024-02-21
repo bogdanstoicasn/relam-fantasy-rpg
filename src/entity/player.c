@@ -1,7 +1,4 @@
-#include "../include/library.h"
-
-// (def + res)*lvl*10/(lvl+1) = life
-// ok
+#include "library.h"
 
 /*
     Creates the player file
@@ -12,7 +9,6 @@ void create_player_file(char *progress_file)
     char name[PADDING_32];
     fgets(name, 32, stdin);
     name[strlen(name) - 1] = '\0';
-
     fflush(stdout);
 
     char *class = first_class_choosing_function();
@@ -27,7 +23,7 @@ void create_player_file(char *progress_file)
 
     fprintf(fptr, "Player Name: %s\n", name);
     fprintf(fptr, "Player Exp: 0\n");
-    fprintf(fptr, "Player Health: 100\n");
+    fprintf(fptr, "Player Health: 50\n");
     fprintf(fptr, "Player Attack: 5\n");
     fprintf(fptr, "Player Magic: 5\n");
     fprintf(fptr, "Player Defense: 5\n");
@@ -43,7 +39,12 @@ void create_player_file(char *progress_file)
     free(first_skill);
 }
 
-void read_player_progress(player_info *player_information, FILE *fptr) {
+// PLAYER UTILITIES
+/*
+    Read the player progress from the file
+*/
+void read_player_progress(player_info *player_information, FILE *fptr)
+{
     char buff[PADDING_128];
 
     // read player info from progress
@@ -89,7 +90,7 @@ void read_player_progress(player_info *player_information, FILE *fptr) {
 
     for (size_t i = 0; i < number; i++) {
         fgets(buff, PADDING_128, fptr);
-        sscanf(buff, "Skill Name: %s", skill_array[i].skill_progress.name);
+        sscanf(buff, "Skill Name: %[^\n]", skill_array[i].skill_progress.name);
 
         fgets(buff, PADDING_128, fptr);
         sscanf(buff, "Skill Level: %ld", &skill_array[i].skill_progress.level);
@@ -119,7 +120,10 @@ void read_player_progress(player_info *player_information, FILE *fptr) {
     player_information->skill_array = skill_array;
 }
 
-
+/*
+    Prints the player progress
+    Usefull for debugging
+*/
 void print_player_progress(player_info *player_information) {
     fprintf(stdout, "Player Name: %s\n", player_information->player_progress.name);
     fprintf(stdout, "Player Exp: %lld\n", player_information->player_progress.exp);
@@ -137,33 +141,4 @@ void print_player_progress(player_info *player_information) {
     }
 }
 
-
-/*
-    Loads the game 
-*/
-size_t load_game(player_info *player_information)
-{
-    char buff[PADDING_1024];
-    if (!getcwd(buff, PADDING_1024)) {
-        perror("cannot fin progress dir");
-        return 0;
-    }
-
-    strcat(buff,"/data/current_progress.txt");
-    FILE *fptr = fopen(buff, "r");
-    (void)player_information;
-    if (!fptr) {
-        // create initial character if the progress doesn't exist
-        create_player_file(buff);
-        FILE *temp = fopen(buff, "r");
-        read_player_progress(player_information, temp);
-        fclose(temp);
-        return 0;
-    }
-    
-    read_player_progress(player_information, fptr);
-    fclose(fptr);
-    // progress exists, TODO: read player info here
-    return 2;
-    
-}
+// PLAYER UTILITIES

@@ -6,7 +6,7 @@
 
 /*
     Contains info about the skill
-    See: utils.h
+    See: "utils.h"
 */
 typedef struct skill_info {
     basic_info skill_progress;
@@ -17,6 +17,11 @@ typedef struct skill_info {
     size_t turns;
     char description[PADDING_64];
 } skill_info;
+
+typedef struct skill_database {
+    size_t number;
+    skill_info *classes;
+} skill_database;
 
 /*
     Generates the first skill of the class the player chooses
