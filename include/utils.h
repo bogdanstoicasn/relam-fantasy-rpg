@@ -20,12 +20,13 @@
 #define PADDING_16 16
 #define PADDING_8 8
 
+
 /*
     Basic information about character/boss
     Made it in a struct to be more compact
 */
 typedef struct {
-    char name[PADDING_32];
+    char name[PADDING_128];
     size_t level;
     unsigned long long exp;
 } basic_info;
@@ -34,6 +35,7 @@ typedef struct {
     Basic stats of a character/monsters
 */
 typedef struct {
+    size_t health;
     size_t attack;
     size_t magic;
     size_t defense;

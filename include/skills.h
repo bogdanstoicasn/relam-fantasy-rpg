@@ -3,6 +3,7 @@
 
 #include "utils.h"
 
+typedef struct database database;
 
 /*
     Contains info about the skill
@@ -15,12 +16,12 @@ typedef struct skill_info {
     penetration skill_penetration;
     size_t strikes;
     size_t turns;
-    char description[PADDING_64];
+    char description[PADDING_128];
 } skill_info;
 
 typedef struct skill_database {
     size_t number;
-    skill_info *classes;
+    skill_info *skills;
 } skill_database;
 
 /*
@@ -32,6 +33,10 @@ skill_info *first_class_skill(char *class);
     Puts a string in the progress file.
     The file must already be opened.
 */
-void skill_print_function(FILE *fptr, skill_info *skill_data);
+void print_skill_function(FILE *fptr, skill_info *skill_data);
+
+void read_skill_data(database *game_database, FILE *fptr);
+
+void print_all_skills(skill_database skills);
 
 #endif

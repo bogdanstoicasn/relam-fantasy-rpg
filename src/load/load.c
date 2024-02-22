@@ -6,9 +6,9 @@
 size_t load_progress(player_info *player_information)
 {
     char buff[PADDING_512];
-    if (!getcwd(buff, PADDING_1024)) {
-        perror("cannot fin progress dir\n");
-        return 0;
+    if (!getcwd(buff, PADDING_512)) {
+        perror("cannot use getcwd\n");
+        return 1;
     }
 
     strcat(buff,"/data/current_progress.txt");
@@ -19,20 +19,78 @@ size_t load_progress(player_info *player_information)
         FILE *temp = fopen(buff, "r");
         read_player_progress(player_information, temp);
         fclose(temp);
-        return 1;
+        return 0;
     }
     
     read_player_progress(player_information, fptr);
     fclose(fptr);
-    return 2;
+    return 0;
     
 }
 
+/*
+    Loads the classes in the database
+*/
 size_t load_class(database *game_database)
 {
     char buff[PADDING_512];
-    if (!getcwd(buff, PADDING_256)) {
-        perror("cannot find class progression\n");
-        return 0;
+    if (!getcwd(buff, PADDING_512)) {
+        perror("cannot use getcwd\n");
+        return 1;
     }
+
+    strcat(buff, "/data/init/classes.txt");
+    FILE *fptr = fopen(buff, "r");
+    if (!fptr) {
+        perror("cannot find class data");
+        return 1;
+    }
+    read_class_data(game_database, fptr);
+    fclose(fptr);
+    return 0;
+}
+
+/*
+    Loads the monsters in the database
+*/
+size_t load_monster(database *game_database)
+{
+    char buff[PADDING_512];
+    if (!getcwd(buff, PADDING_512)) {
+        perror("cannot use getcwd");
+        return 1;
+    }
+    strcat(buff, "/data/init/monsters.txt");
+    FILE *fptr = fopen(buff, "r");
+    if (!fptr) {
+        perror("cannot find monsters data");
+        return 1;
+    }
+
+    read_monster_data(game_database, fptr);
+    fclose(fptr);
+    return 0;
+}
+/*
+    Loads the skills in the database
+*/
+size_t load_skill(database *game_database)
+{
+    char buff[PADDING_512];
+    if (!getcwd(buff, PADDING_512)) {
+        perror("cannot use getcwd");
+        return 1;
+    }
+
+    strcat(buff, "/data/init/skills.txt");
+    FILE *fptr = fopen(buff, "r");
+    if (!fptr) {
+        perror("cannot find skills data");
+        return 1;
+    }
+
+    read_skill_data(game_database, fptr);
+    fclose(fptr);
+    return 0;
+
 }

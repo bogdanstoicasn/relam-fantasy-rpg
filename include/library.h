@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
+#include "SDL2/SDL.h"
 
 #include "class.h"
 #include "monster.h"
@@ -20,10 +22,17 @@
 	} while (0)
 
 typedef struct database {
-    class_database *classes_data;
-    monster_database *monsters_data;
-    skill_database *attack_skills;
-    skill_database *magic_skills;
+    class_database classes_data;
+    monster_database monsters_data;
+	skill_database skills_data;
 } database;
+
+typedef struct graphics {
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+	SDL_Texture *texture;
+	SDL_Rect rect;
+} graphics;
+
 
 #endif

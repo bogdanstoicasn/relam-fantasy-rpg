@@ -1,13 +1,15 @@
 2
 Monster Name: Slime
 Monster Level: 0
-Mosnter Exp: 15
+Monster Exp: 50
 Monster Health: 20
 Monster Attack: 1
 Monster Magic: 1
 Monster Defense: 1
 Monster Resistance: 1
 Monster Dodge: 0
+Monster Type: 0
+Monster Faction: 2
 Monster Skills: 1
 Skill Name: Acid Spit
 Skill Level: 0
@@ -18,17 +20,18 @@ Penetration: 1.000000 1.000000 1.000000
 Strikes: 1
 Turns: 1
 Description: The spit of a slime.
-Monster Type: 0
-Monster Faction: 2
 Monster Name: Goblin
 Monster Level: 0
-Mosnter Exp: 20
+Monster Exp: 100
 Monster Health: 35
 Monster Attack: 7
 Monster Magic: 0
 Monster Defense: 2
 Monster Resistance: 1
 Monster Dodge: 0
+Monster Type: 0
+Monster Faction: 0
+Monster Skills: 1
 Skill Name: Slash
 Skill Level: 0
 Skill Exp: 0
@@ -38,5 +41,3 @@ Penetration: 1.000000 1.000000 1.000000
 Strikes: 1
 Turns: 1
 Description: **GRRRR** **SHOOS**
-Monster Type: 0
-Monster Faction: 0

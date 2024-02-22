@@ -1,0 +1,17 @@
+damage = ((Att / Mag) * P1 - (Def / Res) * dBuff) * dmgBuff * Strikes * rand(P2,P3) * mastery * PASSIVES + class_tier
+
+skills = class_tier
+
+T1 -> 0 lvl 
+T2 -> 20 lvl
+T3 -> 40 lvl
+T4 -> 60 lvl 
+T5 -> 80 lvl 
+T6 -> 100 lvl
+T7 -> 120 lvl
+T8 -> 140 lvl
+T9 -> 160 lvl
+T10 -> 180 lvl
+MAX -> 200 lvl
+
+skills mastery: every 200 usages of a skill u get bonus dmg (2%) capped at 1000 usages (10%)

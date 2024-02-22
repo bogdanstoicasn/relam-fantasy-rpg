@@ -9,7 +9,7 @@
 */
 typedef struct player_info{
     basic_info player_progress;
-    size_t health;
+    size_t free_points;
     basic_stats player_stats;
     char player_class[PADDING_32];
     size_t skills_number;

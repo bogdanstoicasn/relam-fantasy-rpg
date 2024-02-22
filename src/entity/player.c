@@ -23,6 +23,7 @@ void create_player_file(char *progress_file)
 
     fprintf(fptr, "Player Name: %s\n", name);
     fprintf(fptr, "Player Exp: 0\n");
+    fprintf(fptr, "Player Points: 0\n");
     fprintf(fptr, "Player Health: 50\n");
     fprintf(fptr, "Player Attack: 5\n");
     fprintf(fptr, "Player Magic: 5\n");
@@ -32,7 +33,7 @@ void create_player_file(char *progress_file)
     fprintf(fptr, "Player Class: %s\n", class);
     fprintf(fptr, "Player Skills: 1");
 
-    skill_print_function(fptr, first_skill);
+    print_skill_function(fptr, first_skill);
 
     fclose(fptr);
     free(class);
@@ -47,77 +48,97 @@ void read_player_progress(player_info *player_information, FILE *fptr)
 {
     char buff[PADDING_128];
 
-    // read player info from progress
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Name: %s", player_information->player_progress.name);
 
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Exp: %lld", &player_information->player_progress.exp);
 
-    fgets(buff, PADDING_128, fptr);
-    sscanf(buff, "Player Health: %ld", &player_information->health);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
+    sscanf(buff, "Player Points: %ld", &player_information->free_points);
 
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
+    sscanf(buff, "Player Health: %ld", &player_information->player_stats.health);
+
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Attack: %ld", &player_information->player_stats.attack);
 
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Magic: %ld", &player_information->player_stats.magic);
 
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Defense: %ld", &player_information->player_stats.defense);
 
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Resistance: %ld", &player_information->player_stats.resistance);
 
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Dodge: %ld", &player_information->player_stats.dodge);
 
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Class: %s", player_information->player_class);
 
     size_t number;
-    fgets(buff, PADDING_128, fptr);
+    if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
     sscanf(buff, "Player Skills: %zu", &number);
     
     player_information->skills_number = number;
-
-    skill_info *skill_array = malloc(number * sizeof(skill_info));
-    if (skill_array == NULL) {
-        // Handle memory allocation failure
+    player_information->skill_array = malloc(number * sizeof(skill_info));
+    skill_info *skill_array = player_information->skill_array;
+    if (!skill_array) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(EXIT_FAILURE);
     }
 
     for (size_t i = 0; i < number; i++) {
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Skill Name: %[^\n]", skill_array[i].skill_progress.name);
 
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Skill Level: %ld", &skill_array[i].skill_progress.level);
 
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Skill Exp: %lld", &skill_array[i].skill_progress.exp);
 
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Skill Type: %d", (int *)&skill_array[i].skill_damage_type);
 
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Skill Subtype: %d", (int *)&skill_array[i].skill_modifier);
 
-        fgets(buff, PADDING_128, fptr);
-        sscanf(buff, "Penetration: %f %f %f", &skill_array[i].skill_penetration.p1, &skill_array[i].skill_penetration.p2, &skill_array[i].skill_penetration.p3);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
+        sscanf(buff, "Penetration: %f %f %f", &skill_array[i].skill_penetration.p1,
+        &skill_array[i].skill_penetration.p2, &skill_array[i].skill_penetration.p3);
 
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Strikes: %ld", &skill_array[i].strikes);
 
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Turns: %ld", &skill_array[i].turns);
 
-        fgets(buff, PADDING_128, fptr);
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading player");
         sscanf(buff, "Description: %[^\n]", skill_array[i].description);
     }
-
-    player_information->skill_array = skill_array;
 }
 
 /*
@@ -127,7 +148,8 @@ void read_player_progress(player_info *player_information, FILE *fptr)
 void print_player_progress(player_info *player_information) {
     fprintf(stdout, "Player Name: %s\n", player_information->player_progress.name);
     fprintf(stdout, "Player Exp: %lld\n", player_information->player_progress.exp);
-    fprintf(stdout, "Player Health: %ld\n", player_information->health);
+    fprintf(stdout, "Player Points: %ld\n",player_information->free_points);
+    fprintf(stdout, "Player Health: %ld\n", player_information->player_stats.health);
     fprintf(stdout, "Player Attack: %ld\n", player_information->player_stats.attack);
     fprintf(stdout, "Player Magic: %ld\n", player_information->player_stats.magic);
     fprintf(stdout, "Player Defense: %ld\n", player_information->player_stats.defense);
@@ -137,7 +159,7 @@ void print_player_progress(player_info *player_information) {
     fprintf(stdout, "Player Skills: %ld\n", player_information->skills_number);
 
     for (size_t i = 0; i < player_information->skills_number; i++) {
-        skill_print_function(stdout, &player_information->skill_array[i]);
+        print_skill_function(stdout, &player_information->skill_array[i]);
     }
 }
 

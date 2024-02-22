@@ -1,15 +1,14 @@
 #include "load.h"
 
-// SKILL LOADING
-
-// SKILL LOADING
-
 /*
     Generates the first skill of the T1 class
 */
 skill_info *first_class_skill(char *class)
 {
     skill_info *first_skill = malloc(sizeof(skill_info));
+    if (!first_skill)
+        DIE(1, "error allocating memory for first skill");
+
     if (strcmp(class, "Warrior") == 0) {
         strcpy(first_skill->skill_progress.name, "Lunge");
         first_skill->skill_progress.level = 0;
@@ -55,7 +54,7 @@ skill_info *first_class_skill(char *class)
     Prints a skill info to a designated file pointer
     See: "utils.h"
 */
-void skill_print_function(FILE *fptr, skill_info *skill_data)
+void print_skill_function(FILE *fptr, skill_info *skill_data)
 {
     fprintf(fptr, "\n");
     fprintf(fptr, "Skill Name: %s\n", skill_data->skill_progress.name);
@@ -67,4 +66,71 @@ void skill_print_function(FILE *fptr, skill_info *skill_data)
     fprintf(fptr, "Strikes: %ld\n",skill_data->strikes);
     fprintf(fptr, "Turns: %ld\n", skill_data->turns);
     fprintf(fptr, "Description: %s", skill_data->description);
+}
+
+void read_skill_data(database *game_database, FILE *fptr)
+{
+    char buff[PADDING_128];
+    if (!fgets(buff, PADDING_128, fptr))
+        DIE(1, "error reading skill data");
+
+    size_t number = atoi(buff);
+
+    game_database->skills_data.number = number;
+    game_database->skills_data.skills = malloc(number * sizeof(skill_info));
+
+    for (size_t i = 0; i < number; ++i) {
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Skill Name: %[^\n]", game_database->skills_data.skills[i].skill_progress.name);
+
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Skill Level: %ld", &game_database->skills_data.skills[i].skill_progress.level);
+
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Skill Exp: %lld", &game_database->skills_data.skills[i].skill_progress.exp);
+
+       if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Skill Type: %d", (int *)&game_database->skills_data.skills[i].skill_damage_type);
+
+       if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Skill Subtype: %d", (int *)&game_database->skills_data.skills[i].skill_modifier);
+
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Penetration: %f %f %f", &game_database->skills_data.skills[i].skill_penetration.p1,
+        &game_database->skills_data.skills[i].skill_penetration.p2,
+        &game_database->skills_data.skills[i].skill_penetration.p3);
+
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Strikes: %ld", &game_database->skills_data.skills[i].strikes);
+
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Turns: %ld", &game_database->skills_data.skills[i].turns);
+
+        if (!fgets(buff, PADDING_128, fptr))
+            DIE(1, "error reading skill data");
+        sscanf(buff, "Description: %[^\n]", game_database->skills_data.skills[i].description);
+    }
+}
+
+void print_all_skills(skill_database skills)
+{
+    for (size_t i = 0; i < skills.number; ++i) {
+        printf("Skill Name: %s\n", skills.skills[i].skill_progress.name);
+        printf("Skill Level: %ld\n", skills.skills[i].skill_progress.level);
+        printf("Skill Exp: %lld\n", skills.skills[i].skill_progress.exp);
+        printf("Skill Type: %d\n", skills.skills[i].skill_damage_type);
+        printf("Skill Subtype: %d\n", skills.skills[i].skill_modifier);
+        printf("Penetration: %f %f %f\n", skills.skills[i].skill_penetration.p1, skills.skills[i].skill_penetration.p2, skills.skills[i].skill_penetration.p3);
+        printf("Strikes: %ld\n",skills.skills[i].strikes);
+        printf("Turns: %ld\n", skills.skills[i].turns);
+        printf("Description: %s\n", skills.skills[i].description);
+    }
 }
