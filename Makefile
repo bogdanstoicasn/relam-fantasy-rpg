@@ -86,4 +86,9 @@ run: all
 	./$(EXECUTABLE)
 
 run_valgrind: all
-	valgrind -s --track-origins=yes --leak-check=full ./$(EXECUTABLE)
+	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all ./$(EXECUTABLE)
+
+run_valgrind_file: all
+	valgrind -s --track-origins=yes --leak-check=full --show-leak-kinds=all --log-file=valgrind.log ./$(EXECUTABLE)
+# valgrind --leak-check=full --show-reachable=yes --show-leak-kinds=all --error-limit=no --gen-suppressions=all --log-file=supdata.log ./prog.out
+# Command above for supression of errors
