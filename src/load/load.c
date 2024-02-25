@@ -94,3 +94,21 @@ size_t load_skill(database *game_database)
     return 0;
 
 }
+/*
+    Function that frees the game data(graphics excluded). 
+*/
+void free_game_data(player_info *player, database *game)
+{
+    for (size_t i = 0; i < game->monsters_data.number; ++i)
+        free(game->monsters_data.monsters[i].monster_skills);
+    free(game->monsters_data.monsters);
+
+    free(game->skills_data.skills);
+
+    free(game->classes_data.classes);
+
+    free(game);
+
+    free(player->skill_array);
+    free(player);
+}

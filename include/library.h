@@ -6,7 +6,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+
 #include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
+#include "SDL2/SDL_ttf.h"
 
 #include "class.h"
 #include "monster.h"
@@ -31,6 +34,9 @@ typedef struct graphics {
 	SDL_Window *window;
 	SDL_Renderer *render;
 	SDL_Texture *texture;
+	SDL_Texture *text;
+	TTF_Font *font;
+	SDL_Color font_color;
 	SDL_Rect rect;
 } graphics;
 

@@ -11,22 +11,6 @@ size_t error_number;
 /*
     Our entry point in the game
 */
-void free_game_data(player_info *player, database *game)
-{
-    for (size_t i = 0; i < game->monsters_data.number; ++i)
-        free(game->monsters_data.monsters[i].monster_skills);
-    free(game->monsters_data.monsters);
-
-    free(game->skills_data.skills);
-
-    free(game->classes_data.classes);
-
-    free(game);
-
-    free(player->skill_array);
-    free(player);
-}
-
 void game_launcher()
 {
     player_info *player_information = malloc(sizeof(player_info));
@@ -59,11 +43,19 @@ void game_launcher()
     print_all_skills(game_database->skills_data);
 
     error_number = sdl_initialization(game_graphics);
+    if (error_number)
+        goto garbage;
 
-    game_loop(game_graphics);
+    error_number = sdl_game_background(game_graphics);
+    if (error_number)
+        goto garbage;
+
+
+    sdl_game_loop(game_graphics);
 
     // last function here
     // free all resources used by sdl, including game_graphics
+garbage:
     free_game_data(player_information, game_database);
     sdl_cleanup(game_graphics, EXIT_SUCCESS);
 }

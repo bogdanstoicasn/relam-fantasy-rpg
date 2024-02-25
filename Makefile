@@ -77,7 +77,7 @@ $(OBJDIR) $(LIBDIR) $(BINDIR):
 	mkdir -p $@
 
 clean:
-	rm -rf $(OBJDIR) $(LIB) $(BINDIR)
+	rm -rf $(OBJDIR) $(LIB) $(BINDIR) valgrind.log
 
 clean_all: clean
 	rm -rf $(DEP_FILES)
