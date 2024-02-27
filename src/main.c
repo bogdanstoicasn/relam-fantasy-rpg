@@ -46,7 +46,7 @@ void game_launcher()
     if (error_number)
         goto garbage;
 
-    error_number = sdl_game_background(game_graphics);
+    error_number = sdl_intro_screen(game_graphics);
     if (error_number)
         goto garbage;
 

@@ -17,6 +17,6 @@
 size_t sdl_initialization(graphics *game_graphics);
 void sdl_cleanup(graphics *game_graphics, size_t exit_status);
 void sdl_game_loop(graphics *game_graphics);
-size_t sdl_game_background(graphics *game_graphics);
+size_t sdl_intro_screen(graphics *game_graphics);
 
 #endif // GRAPHICS_H

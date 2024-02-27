@@ -58,6 +58,7 @@ void sdl_cleanup(graphics *game_graphics, size_t exit_status)
 
 void sdl_game_loop(graphics *game_graphics)
 {
+    size_t gameState = 0;
     while(1) {
         
         /* gets all the events*/
@@ -74,8 +75,10 @@ void sdl_game_loop(graphics *game_graphics)
                             return;
                         case SDL_SCANCODE_RETURN:
                             printf("YOU ENETERED THE GAME!\n");
+                            gameState = 1;
                             break;
                         case SDL_SCANCODE_KP_ENTER:
+                            gameState = 1;
                             printf("YOU ENTERED THE GAME FROM NUMERIC!\n");
                             break;
                         default:
@@ -88,17 +91,21 @@ void sdl_game_loop(graphics *game_graphics)
 
         // clear
         SDL_RenderClear(game_graphics->render);
-        // draw image
-        SDL_RenderCopy(game_graphics->render, game_graphics->texture, NULL, NULL);
-        // draw second image with text
-        SDL_RenderCopy(game_graphics->render, game_graphics->text, NULL, &game_graphics->rect);
+        if (gameState) {
+
+        } else {
+            // draw image
+            SDL_RenderCopy(game_graphics->render, game_graphics->texture, NULL, NULL);
+            // draw second image with text
+            SDL_RenderCopy(game_graphics->render, game_graphics->text, NULL, &game_graphics->rect);
+        }
         // present the image
         SDL_RenderPresent(game_graphics->render);
         SDL_Delay(FPS(60));
     }
 }
 
-size_t sdl_game_background(graphics *game_graphics)
+size_t sdl_intro_screen(graphics *game_graphics)
 {   
     char buff[PADDING_512], buff2[PADDING_512];
     if (!getcwd(buff, PADDING_512)) {
